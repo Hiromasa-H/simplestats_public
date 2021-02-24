@@ -1,0 +1,74 @@
+{% extends 'mainapp/template.html' %}
+
+{% load static %}
+
+{% block head %}
+<!-- <link rel="stylesheet" href="{% static 'css/home.css' %}"> -->
+{% endblock %}
+
+{% block content %}
+<main>
+
+    {% if messages %}
+    {% for message in messages %}
+    <p class="alert-{{message.tags}}">{{message}}</p>
+    {% endfor %}
+    {% endif %}
+    <!-- <h1>INDEX</h1> -->
+    <!-- <form action="" method="POST" enctype="multipart/form-data">
+        {%csrf_token%}s
+        {{form.uploaded_file}}
+        <p>上限2.5MB</p>
+        <input type="submit" value="upload">
+    </form> -->
+    <!-- <form method='get' action='#'>
+        <input type="submit" value="CSVを表示" name="show_csv"/>
+    </form> -->
+    {% if files %}
+    {% else %}
+    <div class="explanation">
+        <p class="textm">解析を始めるにはcsvファイルをアップロードしてください。</p>
+        <p>サンプルファイル：</p>
+        <ul>
+            <li><a href="https://drive.google.com/file/d/1KFANdIfCYy7V4EyBu-KnlY7_Xm_d7p-r/view?usp=sharing">2値分類ファイル1(iris)</a></li>
+            <li><a href="https://drive.google.com/file/d/14lBcGAh117dRVOWVy3Aoo_HA_7i_-OcT/view?usp=sharing">2値分類ファイル2(signate PC game)</a></li>
+        </ul>
+        <a class="btn btn-info" href="{% url 'fileupload' %}">ファイルをアップロードする</a>
+    </div>
+    {% endif %}
+    <div class="buttons">
+    {% for file in files %}
+    <div class="button-row">
+    <a href="{% url 'filedelete' file.id %}"><button type="button" class="btn btn-danger">{{file}}を消す</button></a>
+    <a href="{% url 'single' file.id %}"><button type="button" class="btn btn-info">{{file}}の詳細</button></a>
+    </div>
+    {% endfor %}
+    </div>
+
+    {% for df_table in df_tables %}
+    <div class="table-wrapper">
+    {{df_table | safe}}
+    </div>
+    {% endfor %}
+
+
+
+</main>
+
+<style>
+.dataframe tbody{
+    width:320px; 
+    height:80px; 
+    overflow:auto;
+}
+/*.buttons{
+    margin:1rem;
+
+}*/
+/*.button-row{
+    margin:0.5rem;
+}*/
+
+</style>
+{% endblock %}
+

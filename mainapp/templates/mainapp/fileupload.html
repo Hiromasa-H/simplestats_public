@@ -1,0 +1,27 @@
+{% extends 'mainapp/template.html' %}
+
+{% load static %}
+
+{% block head %}
+<!-- <link rel="stylesheet" href="{% static 'css/home.css' %}"> -->
+{% endblock %}
+
+{% block content %}
+<main>
+    {% if messages %}
+    {% for message in messages %}
+    <p class="alert-{{message.tags}}">{{message}}</p>
+    {% endfor %}
+    {% endif %}
+    <h1>
+        FILE UPLOAD
+    </h1>
+    <form method="POST" enctype="multipart/form-data">
+        {%csrf_token%}
+        {{form.uploaded_file}}
+        <p>上限2.5MB</p>
+        <input class="btn btn-info" type="submit" value="upload">
+    </form>
+    
+</main>
+{% endblock %}

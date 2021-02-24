@@ -1,0 +1,123 @@
+{% extends 'mainapp/template.html' %}
+
+{% load static %}
+
+{% block head %}
+<!-- <link rel="stylesheet" href="{% static 'css/home.css' %}"> -->
+{% endblock %}
+
+{% block content %}
+<main>
+
+    {% if messages %}
+    {% for message in messages %}
+    <p class="alert-{{message.tags}}">{{message}}</p>
+    {% endfor %}
+    {% endif %}
+    <h1>CLASSIFICATION</h1>
+    
+    <form action="" method="POST"> 
+        {%csrf_token%}
+        <div class="table-wrapper">
+        <table>
+            <tr>
+                <th>LABEL</th>
+            {% for colname in colnames %}
+                <th>{{colname}}</th>
+            {% endfor %}
+            </tr>
+        
+        <!-- <label for="cat">Categorical Variables</label> -->
+        <tr>
+            <td>Categorical Variables</td>
+            {% for colname in colnames %}
+            <td><input type="checkbox" name="cat" value="{{colname}}" ></td>
+            {% endfor %}
+        </tr>
+
+        <tr>
+            <td>Ordinal Variables</td>
+            {% for colname in colnames %}
+            <td><input type="checkbox" name="ord" value="{{colname}}" ></td>
+            {% endfor %}
+        </tr>
+
+        <tr>
+            <td>Explanatory Variables</td>
+            {% for colname in colnames %}
+            <td><input type="checkbox" name="expvar" value="{{colname}}" checked="checked"></td>
+            {% endfor %}
+        </tr>
+        
+        <tr>
+            <td>Target Variable</td>
+            {% for colname in colnames %}
+            <td><input type="radio" name="target" value="{{colname}}"></td>
+            {% endfor %}
+        </tr>
+
+        <tr>
+            <th></th>
+            {% for method in methods %}
+            <th>{{method}}</th>
+            {% endfor %}
+        </tr>
+
+        <tr>
+            <td>Methods</td>
+            {% for method in methods %}
+            <td><input type="checkbox" name="methods" value="{{method}}" checked="checked"></td>
+            {% endfor %}
+        </tr>
+
+        <tr>
+            <th></th>
+            {% for metric in metrics %}
+            <th>{{metric}}</th>
+            {% endfor %}
+        </tr>
+
+        <tr>
+            <td>Metrics</td>
+            {% for metric in metrics %}
+            <td><input type="checkbox" name="metrics" value="{{metric}}" checked="checked"></td>
+            {% endfor %}
+        </tr>
+        </table>
+        </div>
+        <input class="btn btn-primary" type="submit" value="解析する">  <a class="btn btn-secondary" href="{% url 'single' f_id %}">前のページに戻る</a>
+
+    </form>
+    
+
+    {% if results %}
+    <table>
+        <tr>
+            <th>Method</th>
+        {% for chosen_metric in chosen_metrics %}
+        <th>{{chosen_metric}}</th>
+        {% endfor %}
+        </tr>
+        
+       
+        {% for set in results %}
+        <tr>
+        <td>{{set.method}}</td>
+
+        {% for metric, value in set.score.items %}
+        <!-- {{metric}} , {{value}} -->
+        <td>{{value}}</td>
+        {% endfor %}
+    </tr>
+        {% endfor %}
+        
+    </table>
+    {% endif %}
+
+</main>
+
+<style>
+
+</style>
+{% endblock %}
+

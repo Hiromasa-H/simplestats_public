@@ -1,0 +1,54 @@
+{% extends 'mainapp/template.html' %}
+
+{% load static %}
+
+{% block head %}
+<!-- <link rel="stylesheet" href="{% static 'css/home.css' %}"> -->
+{% endblock %}
+
+{% block content %}
+<main>
+
+    {% if messages %}
+    {% for message in messages %}
+    <p class="alert-{{message.tags}}">{{message}}</p>
+    {% endfor %}
+    {% endif %}
+
+    
+
+    <h2>Data</h2>
+    <div class="table-wrapper">
+    {{data_html | safe}}
+    </div>
+    <br>
+
+    <h2>Description</h2>
+    <div class="table-wrapper">
+    {{description | safe}}
+</div>
+    <br>
+
+    <h2>Correlation Matrix</h2>
+    <div class="table-wrapper">
+    {{correlation_matrix | safe}}
+</div>
+    <br>
+    <div>
+        <a class="btn btn-info" href="{% url 'classification' f_id %}">2値分類</a>
+        <a class="btn btn-info" href="{% url 'regression' f_id %}">回帰分析</a>
+        <a class="btn btn-secondary" href="{% url 'index' %}">前のページに戻る</a>
+    </div>
+
+</main>
+
+<style>
+/* .dataframe tbody{
+    width:320px; 
+    height:80px; 
+    overflow:auto;
+} */
+
+</style>
+{% endblock %}
+

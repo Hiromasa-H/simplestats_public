@@ -1,0 +1,29 @@
+{% extends 'mainapp/template.html' %}
+
+{% load static %}
+
+{% block head %}
+<!-- <link rel="stylesheet" href="{% static 'css/home.css' %}"> -->
+{% endblock %}
+
+{% block content %}
+<main>
+
+    {% if messages %}
+    {% for message in messages %}
+    <p class="alert-{{message.tags}}">{{message}}</p>
+    {% endfor %}
+    {% endif %}
+    <h1>DELETE FILE</h1>
+    次のファイルを本当に消しますか？：「
+    {{f}}」
+    <form action="" method="POST">
+        {%csrf_token%}
+        <a class="btn btn-secondary" href="{% url 'index' %}">いいえ、消しません</a>
+        <input class="btn btn-danger" type="submit" value="はい、消します">
+    </form>
+
+</main>
+
+{% endblock %}
+
