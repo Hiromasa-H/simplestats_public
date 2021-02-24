@@ -8,7 +8,7 @@ heroku デモ：https://hiromasa-simplestats.herokuapp.com/
 
 このレポジトリは、Django のコードを公開するために作ったレポジトリです。セキュリティ上 API Key などは隠す必要があるので、一部のファイルは敢えてレポジトリから外しています。本レポジトリを git clone してもローカルでそのまま動かすことはできないので注意してください。
 
-## ページ説明
+## 使い方
 
 ### トップページ
 
@@ -34,3 +34,15 @@ heroku デモ：https://hiromasa-simplestats.herokuapp.com/
 
 ![](md_static/classification3.png)
 解析後は下に結果が表示され、モデルの比較が可能となります。
+
+<hr>
+
+## 主なファイル
+
+| ファイル名                                     | 役目                                   |
+| ---------------------------------------------- | -------------------------------------- |
+| [mainapp/views.py](mainapp/views.py)           | 各ページのビューを管理している。       |
+| [mainapp/models.py](mainapp/models.py)         | Django モデルの管理をしている          |
+| [mainapp/preprocess.py](mainapp/preprocess.py) | 解析の前処理用の関数が入っている。     |
+| [mainapp/utils.py](mainapp/utils.py)           | 解析用の各種関数が入っている。         |
+| mainapp/templates/\*                           | 各ビューの HTML ファイルが入っている。 |
